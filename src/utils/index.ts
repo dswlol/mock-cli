@@ -2,7 +2,7 @@ import { spawn } from 'child_process'
 import path from 'path'
 
 export const openMockPage = () => {
-    const frontendPath = path.resolve(__dirname, '../../servers/web')
+    const frontendPath = path.resolve(__dirname, '../../servers/page')
 
     const child = spawn('pnpm', ['dev'], {
         cwd: frontendPath,

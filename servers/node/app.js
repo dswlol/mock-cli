@@ -8,7 +8,7 @@ const router = new Router()
 app.use(json())
 
 router.get('/',async(ctx)=>{
-    ctx.body = {message:'Hello,world'}
+    ctx.body = {message:'Hello,world33'}
 })
 
 app.use(router.routes())
