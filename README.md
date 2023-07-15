@@ -1,13 +1,11 @@
-## cli-starter
+## mock-cli
 
 A command line tool template.
 
 ## Try it now!
 
 ```bash
-$ pnpm create un
-# or
-$ pnpm create un [my-cli] -t cli-starter
+$ pnpm i
 ```
 
 Link your cli tool to global
@@ -51,7 +49,7 @@ Publish to npm:
 
 ```shell
 $ git remote add origin xxx # make sure you have bound a repo
-$ git push origin main 
+$ git push origin main
 $ pnpm release # or npm publish directly
 $ npm publish
 ```

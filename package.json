@@ -29,7 +29,7 @@
     "./*": "./*"
   },
   "bin": {
-    "mockui": "./bin/index.mjs"
+    "amock": "./bin/index.mjs"
   },
   "scripts": {
     "build": "unbuild",
