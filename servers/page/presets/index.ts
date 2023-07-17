@@ -62,6 +62,7 @@ export default function () {
 		Router({
 			routesFolder: 'src/pages',
 			extensions: ['.md', '.vue', '.tsx', '.jsx'],
+			exclude: ['**/components/*.vue'],
 			dts: 'presets/types/type-router.d.ts',
 		}),
 		// 模块自动加载

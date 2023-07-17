@@ -16,7 +16,7 @@ const routes = getRoutes()
 			name = path
 		}
 
-		return { path, name: name.toString().slice(1).replaceAll('/', ' · ') }
+		return { path, name: name.toString().slice(1).replaceAll('/', '') }
 	})
 </script>
 
