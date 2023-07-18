@@ -1,22 +1,27 @@
 <template>
 	<div>
+		<el-button @click="handleClick">转TS类型</el-button>
+		<el-button @click="handleMockClick">MOCK数据</el-button>
 		<el-tabs v-model="state.activeName">
     <el-tab-pane label="数据源" name="01">
 			<JsonEditorVue
 					v-model="state.jsonData"
-					v-bind="{/* local props & attrs */}"
+					:="state.config"
 				/>
 			</el-tab-pane>
     <el-tab-pane label="TS类型" name="02">
-			<JsonEditorVue
-					v-model="state.jsonData"
-					v-bind="{/* local props & attrs */}"
+			<el-input
+			    v-model="state.tsData"
+					:autosize="{ minRows: 2, maxRows: 4 }"
+					type="textarea"
+
+					:="state.config"
 				/>
 			</el-tab-pane>
     <el-tab-pane label="MOCK数据" name="03">
 			<JsonEditorVue
-					v-model="state.jsonData"
-					v-bind="{/* local props & attrs */}"
+					v-model="state.mockData"
+					:="state.config"
 				/>
 			</el-tab-pane>
   </el-tabs>
@@ -24,6 +29,7 @@
 	</div>
 </template>
 <script setup lang="ts">
+import {jsonToTs} from '~/utils'
 const state = reactive({
 	activeName:'01',
 	jsonData: {
@@ -85,8 +91,27 @@ const state = reactive({
             diedAt: '1852-11-27T00:00:00.000Z'
           }
         ]
-  }
+	},
+	tsData: '',
+	mockData:{},
+	config: {
+		mode: 'text',
+		mainMenuBar: false,
+	}
 })
+
+const handleClick = () => {
+	let temp = state.jsonData;
+	if (typeof (state.jsonData) === 'string') {
+		temp = JSON.parse(temp);
+	}
+	state.tsData = jsonToTs(temp, 'JsonType');
+	console.log('handleClick==--tsData',state.jsonData)
+}
+
+const handleMockClick = () => {
+	console.log('handleClick==--mockData',state.tsData)
+}
 </script>
 
 <style>
