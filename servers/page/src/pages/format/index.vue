@@ -10,12 +10,14 @@
 				/>
 			</el-tab-pane>
     <el-tab-pane label="TS类型" name="02">
-			<el-input
-			    v-model="state.tsData"
-					:autosize="{ minRows: 2, maxRows: 4 }"
-					type="textarea"
-
+			<!-- <JsonEditorVue
+					v-model="state.tsData"
 					:="state.config"
+				/> -->
+				<vue-monaco-editor
+					v-model:value="state.tsData"
+					class="monaco-wrap"
+					theme="vs-dark"
 				/>
 			</el-tab-pane>
     <el-tab-pane label="MOCK数据" name="03">
@@ -29,7 +31,8 @@
 	</div>
 </template>
 <script setup lang="ts">
-import {jsonToTs} from '~/utils'
+// import {jsonToTs} from '~/utils'
+import JsonToTS from 'json-to-ts';
 const state = reactive({
 	activeName:'01',
 	jsonData: {
@@ -105,8 +108,8 @@ const handleClick = () => {
 	if (typeof (state.jsonData) === 'string') {
 		temp = JSON.parse(temp);
 	}
-	state.tsData = jsonToTs(temp, 'JsonType');
-	console.log('handleClick==--tsData',state.jsonData)
+	state.tsData = JsonToTS(temp).reduce((a, b) => `${a}\n\n${b}`);
+	console.log('handleClick==-tsData',state.tsData)
 }
 
 const handleMockClick = () => {
@@ -115,25 +118,11 @@ const handleMockClick = () => {
 </script>
 
 <style>
-a {
-	color: rgba(37, 99, 235);
+
+
+.monaco-wrap {
+   width: 1200px !important;
+	 height: 900px !important;
 }
 
-p {
-	padding: 0 10px;
-}
-
-.logo {
-	width: 10em;
-	height: 10em;
-	padding: 1.5rem;
-	will-change: filter;
-	transition: filter 300ms;
-}
-.logo:hover {
-	filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-	filter: drop-shadow(0 0 2em #42b883aa);
-}
 </style>

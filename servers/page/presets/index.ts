@@ -34,7 +34,6 @@ import Removelog from 'vite-plugin-removelog'
 import Modules from 'vite-plugin-use-modules'
 import Layouts from 'vite-plugin-vue-meta-layouts'
 import { warmup as Warmup } from 'vite-plugin-warmup'
-
 import I18N from '@intlify/unplugin-vue-i18n/vite'
 import Legacy from '@vitejs/plugin-legacy'
 import Vue from '@vitejs/plugin-vue'
