@@ -3,7 +3,7 @@ import pkg from '../package.json'
 import openServer from './openServer'
 const cli = cac(pkg.name)
 
-cli.command('ui', 'Lint files').option('--name <name>', 'Provide your name').action(openServer)
+cli.command('ui', 'Lint files').option('--name <name>', 'Provide your name').option('--config <path>', 'Use a custom config file').action(openServer)
   // .command('lint [...args]', 'Lint files')
   // .option('--type <type>', 'Choose a project type', { // demo usage
   //   default: 'node',
@@ -11,7 +11,7 @@ cli.command('ui', 'Lint files').option('--name <name>', 'Provide your name').act
   // .option('--name <name>', 'Provide your name')
 
 
-cli.help()
+cli.help();
 
 cli.version(pkg.version)
 

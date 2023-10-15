@@ -1,41 +1,99 @@
 <template>
-	<div>
-		<div class="grid grid-cols-3">
-			<a href="https://github.com/dishait/tov-template" target="_blank">
-				<img src="/logo.png" class="logo" alt="Vite logo" />
-			</a>
-			<a href="https://vitejs.dev" target="_blank">
-				<img src="/vite.svg" class="logo" alt="Vite logo" />
-			</a>
-			<a href="https://vuejs.org/" target="_blank">
-				<img src="/vue.svg" class="logo vue" alt="Vue logo" />
-			</a>
+	<div class="w-3xl flex flex-row project-container">
+   <div v-for="(item,i) in state.list" @click="()=>handleClick(item)" class="node-item w-62 bg-white  rounded-lg m-4 shadow-lg h-52 border-solid border-transparent border-current" :key="i">
+			<div class="title">{{ item.name }}</div>
+			<div class="path">项目路径：</div>
+			<div class="path">{{ item.path }}</div>
 		</div>
-		<HelloWorld msg="Tov + Vite + Vue" />
-		wwww
 	</div>
+	<el-dialog
+    v-model="state.dialogVisible"
+    title="Tips"
+    width="40%"
+  >
+	<el-form :model="state.form" label-width="120px">
+    <el-form-item label="项目名称">
+      <el-input v-model="state.form.name" />
+    </el-form-item>
+    <el-form-item label="项目绝对路径">
+			<el-input v-model="state.form.path" />
+    </el-form-item>
+		<el-form-item>
+      <el-button type="primary" @click="onSubmit">Create</el-button>
+      <el-button>Cancel</el-button>
+    </el-form-item>
+		</el-form>
+
+  </el-dialog>
+	<div @click="addProduct" class="fixed bottom-8 right-8 justify-center content-center flex bg-lime-500 rounded-full w-8 h-8">+</div>
 </template>
-
-<style>
-a {
-	color: rgba(37, 99, 235);
+<script setup lang="ts">
+import { reactive } from 'vue'
+import {useRouter} from 'vue-router'
+import { queryProductList, saveMock } from '../api/mock'
+const router = useRouter();
+const state = reactive<{
+	list: any,
+	form: {
+		name: string;
+		path: string;
+	},
+	dialogVisible: boolean
+}>({
+	list: [],
+	form: {
+		name: '',
+		path: ''
+	},
+	dialogVisible: false
+})
+const initData = async () => {
+	const {data} = await queryProductList();
+	console.log(data, 'sllsls');
+	state.list = data||[];
 }
 
-p {
-	padding: 0 10px;
+const addProduct = () => {
+	state.dialogVisible = true;
+	state.form = {
+		name: '',
+		path: ''
+	}
 }
 
-.logo {
-	width: 10em;
-	height: 10em;
-	padding: 1.5rem;
-	will-change: filter;
-	transition: filter 300ms;
+const handleClick = (item:any) => {
+	console.log(item, 'sslsl=====')
+  router.push(`/format?id=${item.id}&timer=${+new Date()}`)
 }
-.logo:hover {
-	filter: drop-shadow(0 0 2em #646cffaa);
+
+const onSubmit = async () => {
+	const { data } = await saveMock(state.form);
+	console.log('data====',data)
+	initData();
+	state.dialogVisible = false;
 }
-.logo.vue:hover {
-	filter: drop-shadow(0 0 2em #42b883aa);
+
+initData();
+</script>
+
+<style lang="scss" scoped>
+.project-container {
+
+	.node-item {
+		padding: 20px;
+		.title {
+			font-size: 16px;
+			color: #666;
+			font-weight: 700;
+			margin-bottom: 20px;
+		}
+
+		.path {
+			width: 100%;
+      word-break: break-all;
+		}
+	}
+
+
 }
 </style>

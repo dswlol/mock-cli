@@ -1,6 +1,6 @@
 <template>
 	<Navigation />
-	<div class="w-screen flex flex-col items-center justify-center">
+	<div class="root-container">
 		<router-view v-slot="{ Component }">
 			<transition name="fade" mode="out-in">
 				<component :is="Component" />
@@ -13,6 +13,10 @@
 .fade-enter-active,
 .fade-leave-active {
 	transition: opacity 0.25s ease;
+}
+
+.root-container {
+	height: calc(100% - 80px);
 }
 
 .fade-enter-from,
